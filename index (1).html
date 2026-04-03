@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gamla Apoteket i Smedjebacken – Hembageri & Kafé</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --cream: #faf7f2;
+    --warm: #f5ede0;
+    --brown: #6b4c2a;
+    --dark: #2c1f10;
+    --gold: #c8922a;
+    --light-brown: #9c7248;
+    --text: #3a2a1a;
+    --muted: #8a7060;
+  }
+
+  body {
+    font-family: 'Lato', sans-serif;
+    background: var(--cream);
+    color: var(--text);
+    line-height: 1.7;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: rgba(250,247,242,0.96);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid rgba(107,76,42,0.12);
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 64px;
+  }
+
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    color: var(--brown);
+    text-decoration: none;
+    letter-spacing: 0.3px;
+  }
+
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a { font-size: 13px; color: var(--muted); text-decoration: none; letter-spacing: 0.8px; text-transform: uppercase; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--brown); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    background: linear-gradient(160deg, #2c1f10 0%, #6b4c2a 60%, #9c7248 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 6rem 2rem 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+
+  .hero-inner { position: relative; max-width: 680px; }
+
+  .hero-tag {
+    display: inline-block;
+    font-size: 11px;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: rgba(200,146,42,0.9);
+    border: 1px solid rgba(200,146,42,0.4);
+    padding: 6px 16px;
+    border-radius: 20px;
+    margin-bottom: 1.5rem;
+  }
+
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(36px, 6vw, 64px);
+    color: #fff;
+    line-height: 1.15;
+    margin-bottom: 1rem;
+  }
+
+  .hero h1 em {
+    font-style: italic;
+    color: #e8c98a;
+  }
+
+  .hero p {
+    font-size: 17px;
+    color: rgba(255,255,255,0.75);
+    font-weight: 300;
+    margin-bottom: 2.5rem;
+    max-width: 480px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .hero-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+
+  .btn-primary {
+    background: var(--gold);
+    color: #fff;
+    padding: 14px 32px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    transition: all 0.2s;
+  }
+  .btn-primary:hover { background: #b07d20; transform: translateY(-1px); }
+
+  .btn-outline {
+    background: transparent;
+    color: #fff;
+    padding: 14px 32px;
+    border-radius: 4px;
+    border: 1px solid rgba(255,255,255,0.35);
+    text-decoration: none;
+    font-size: 14px;
+    letter-spacing: 0.5px;
+    transition: all 0.2s;
+  }
+  .btn-outline:hover { background: rgba(255,255,255,0.1); }
+
+  .hero-scroll {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    color: rgba(255,255,255,0.4);
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .hero-scroll::after {
+    content: '';
+    width: 1px;
+    height: 40px;
+    background: rgba(255,255,255,0.25);
+    display: block;
+    animation: scrollLine 1.8s ease-in-out infinite;
+  }
+
+  @keyframes scrollLine {
+    0%,100% { opacity: 0.2; transform: scaleY(1); }
+    50% { opacity: 0.6; transform: scaleY(0.6); }
+  }
+
+  /* SECTIONS */
+  section { padding: 5rem 2rem; }
+
+  .section-inner { max-width: 1000px; margin: 0 auto; }
+
+  .section-label {
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.75rem;
+    font-weight: 700;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(28px, 4vw, 42px);
+    color: var(--dark);
+    line-height: 1.2;
+    margin-bottom: 1.25rem;
+  }
+
+  .section-text {
+    font-size: 16px;
+    color: var(--muted);
+    font-weight: 300;
+    max-width: 560px;
+    line-height: 1.8;
+  }
+
+  /* OM OSS */
+  .about { background: var(--cream); }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: center;
+  }
+
+  .about-visual {
+    background: var(--warm);
+    border-radius: 4px;
+    aspect-ratio: 4/3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .about-visual-inner {
+    text-align: center;
+    padding: 2rem;
+  }
+
+  .about-icon {
+    font-size: 80px;
+    display: block;
+    margin-bottom: 1rem;
+    line-height: 1;
+  }
+
+  .about-visual p {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    color: var(--brown);
+    font-style: italic;
+  }
+
+  .about-badge {
+    position: absolute;
+    bottom: 1.5rem;
+    right: 1.5rem;
+    background: var(--brown);
+    color: #fff;
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    text-align: center;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    line-height: 1.4;
+  }
+
+  /* MENY */
+  .menu { background: var(--warm); }
+
+  .menu-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.5rem;
+    margin-top: 3rem;
+  }
+
+  .menu-card {
+    background: #fff;
+    border-radius: 4px;
+    padding: 2rem 1.5rem;
+    border-bottom: 3px solid transparent;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+
+  .menu-card:hover { border-color: var(--gold); transform: translateY(-3px); }
+
+  .menu-card-icon { font-size: 36px; margin-bottom: 1rem; display: block; }
+  .menu-card h3 { font-family: 'Playfair Display', serif; font-size: 20px; color: var(--dark); margin-bottom: 0.5rem; }
+  .menu-card p { font-size: 14px; color: var(--muted); line-height: 1.6; }
+
+  /* INFO */
+  .info { background: var(--cream); }
+
+  .info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+  }
+
+  .info-card {
+    background: var(--warm);
+    border-radius: 4px;
+    padding: 2rem;
+  }
+
+  .info-card-label {
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+
+  .info-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    color: var(--dark);
+    margin-bottom: 0.75rem;
+  }
+
+  .info-card p, .info-card a {
+    font-size: 15px;
+    color: var(--muted);
+    line-height: 1.8;
+    text-decoration: none;
+  }
+
+  .info-card a:hover { color: var(--brown); }
+
+  /* FOOTER */
+  footer {
+    background: var(--dark);
+    color: rgba(255,255,255,0.5);
+    text-align: center;
+    padding: 3rem 2rem;
+  }
+
+  footer .footer-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    color: #e8c98a;
+    margin-bottom: 0.75rem;
+  }
+
+  footer p { font-size: 13px; line-height: 1.8; }
+  footer a { color: rgba(255,255,255,0.5); text-decoration: none; }
+  footer a:hover { color: #e8c98a; }
+
+  .footer-divider {
+    width: 40px;
+    height: 1px;
+    background: rgba(255,255,255,0.15);
+    margin: 1.5rem auto;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 680px) {
+    .nav-links { display: none; }
+    .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .about-visual { aspect-ratio: 3/2; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="#">Gamla Apoteket</a>
+  <ul class="nav-links">
+    <li><a href="#om">Om oss</a></li>
+    <li><a href="#meny">Meny</a></li>
+    <li><a href="#hitta">Hitta hit</a></li>
+    <li><a href="#kontakt">Kontakt</a></li>
+  </ul>
+</nav>
+
+<section class="hero">
+  <div class="hero-inner">
+    <span class="hero-tag">Hembageri & Kafé · Smedjebacken</span>
+    <h1>Välkommen till<br><em>Gamla Apoteket</em></h1>
+    <p>Ett familjeägt hembageri och kafé mitt i hjärtat av Smedjebacken. Hembakat med kärlek sedan dag ett.</p>
+    <div class="hero-btns">
+      <a href="#meny" class="btn-primary">Se vad vi erbjuder</a>
+      <a href="#hitta" class="btn-outline">Hitta hit</a>
+    </div>
+  </div>
+  <div class="hero-scroll">Scrolla</div>
+</section>
+
+<section class="about" id="om">
+  <div class="section-inner">
+    <div class="about-grid">
+      <div class="about-visual">
+        <div class="about-visual-inner">
+          <span class="about-icon">🏛️</span>
+          <p>"Hembakat med hjärta<br>sedan vi öppnade dörrarna"</p>
+        </div>
+        <div class="about-badge">Familje&shy;ägt &amp; drivet</div>
+      </div>
+      <div>
+        <div class="section-label">Om oss</div>
+        <h2 class="section-title">En plats med<br>historia och smak</h2>
+        <p class="section-text">Gamla Apoteket ligger i en vacker gammal byggnad mitt i Smedjebacken. Hos oss hittar du ett mysigt kafé med hembakat kaffebröd, bakelser och smörgåsar – allt gjort med omsorg och kärlek.</p>
+        <p class="section-text" style="margin-top:1rem">Vi är ett familjeägt hembageri som sätter kvalitet och hemkänsla framför allt annat. Välkommen in för en stund av lugn och gott fika.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="menu" id="meny">
+  <div class="section-inner">
+    <div class="section-label">Vårt utbud</div>
+    <h2 class="section-title">Hembakat &amp; gott</h2>
+    <p class="section-text">Allt vi serverar är gjort från grunden i vårt eget bageri.</p>
+    <div class="menu-grid">
+      <div class="menu-card">
+        <span class="menu-card-icon">☕</span>
+        <h3>Fika</h3>
+        <p>Kaffe, te och andra drycker serverade i mysig miljö. Perfekt för en paus i vardagen.</p>
+      </div>
+      <div class="menu-card">
+        <span class="menu-card-icon">🥐</span>
+        <h3>Hembakt kaffebröd</h3>
+        <p>Nybakat kaffebröd och bakelser gjorda med traditionella recept och råvaror av hög kvalitet.</p>
+      </div>
+      <div class="menu-card">
+        <span class="menu-card-icon">🎂</span>
+        <h3>Bakelser & tårtor</h3>
+        <p>Vackra och välsmakande bakelser och tårtor – perfekt till vardag eller fest.</p>
+      </div>
+      <div class="menu-card">
+        <span class="menu-card-icon">🥪</span>
+        <h3>Smörgåsar</h3>
+        <p>Hembakade smörgåsar med smakrika pålägg – ett enkelt och gott alternativ till lunch.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="info" id="hitta">
+  <div class="section-inner">
+    <div class="section-label">Praktisk info</div>
+    <h2 class="section-title">Hitta till oss</h2>
+    <div class="info-grid">
+      <div class="info-card">
+        <div class="info-card-label">Adress</div>
+        <h3>Var vi finns</h3>
+        <p>Vasagatan 1<br>777 30 Smedjebacken<br><br>Vi ligger mitt i centrum, lätt att hitta!</p>
+      </div>
+      <div class="info-card">
+        <div class="info-card-label">Öppettider</div>
+        <h3>När vi är öppna</h3>
+        <p>Se våra aktuella öppettider på<br><a href="https://www.facebook.com/people/Gamla-Apoteket-I-Smedjebacken-Hembageri-Kaf%C3%A9/61564805877546/" target="_blank">Facebook →</a></p>
+      </div>
+      <div class="info-card" id="kontakt">
+        <div class="info-card-label">Kontakt</div>
+        <h3>Hör av dig</h3>
+        <p>
+          📞 <a href="tel:024071120">0240-711 20</a><br><br>
+          ✉️ <a href="mailto:gamlaapoteketismedjebacken@gmail.com">gamlaapoteketismedjebacken@gmail.com</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">Gamla Apoteket</div>
+  <p>Hembageri & Kafé · Vasagatan 1, Smedjebacken</p>
+  <div class="footer-divider"></div>
+  <p>
+    <a href="tel:024071120">0240-711 20</a> &nbsp;·&nbsp;
+    <a href="mailto:gamlaapoteketismedjebacken@gmail.com">gamlaapoteketismedjebacken@gmail.com</a> &nbsp;·&nbsp;
+    <a href="https://www.facebook.com/people/Gamla-Apoteket-I-Smedjebacken-Hembageri-Kaf%C3%A9/61564805877546/" target="_blank">Facebook</a>
+  </p>
+</footer>
+
+</body>
+</html>
